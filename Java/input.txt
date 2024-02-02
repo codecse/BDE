@@ -1,6 +1,8 @@
-surya
-surya
-Surya
-Hari Surya
-surya
-Srikar
+Hello world
+This is a sample text for word count
+Word count program is a simple example
+Example is used for demonstration
+Word count program counts the occurrences of each word
+Each word is considered as a key in the output
+The output shows the frequency of each unique word
+Word count is a fundamental algorithm in distributed computing
