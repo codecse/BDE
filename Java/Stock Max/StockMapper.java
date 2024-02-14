@@ -18,7 +18,7 @@ public class StockMapper {
             String[] items = line.split(",");
             if (items.length >= 8) { // Ensure there are enough elements
                 String stockName = items[0];
-String key = items[1];
+ String key = items[1];
                 float price = Float.parseFloat(items[7]);
                 System.out.println(stockName + "," + key + " " + price);
             }
@@ -27,4 +27,3 @@ String key = items[1];
         br.close();
     }
 }
-
