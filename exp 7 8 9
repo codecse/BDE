@@ -1,0 +1,66 @@
+-- EXP 7
+
+CREATE TABLE IF NOT EXISTS EMPLOYEE_TABLE (id INT,name STRING,age INT,salary INT);
+DESCRIBE EMPLOYEE_TABLE
+CREATE TABLE IF NOT EXISTS LOAN_TABLE (loadid INT,id INT,loan_applied Boolean,loan_amt INT);
+DESCRIBE LOAN_TABLE
+
+INSERT INTO TABLE EMPLOYEE_TABLE VALUES (1,'Ravi',34,99),(2,'Teja',44,199),(3,'Bhima',34,229);
+INSERT INTO TABLE EMPLOYEE_TABLE VALUES (4,'Srinivas',36,10),(5,'Rao',45,200),(6,'Dhanikonda',35,300);
+INSERT INTO TABLE EMPLOYEE_TABLE VALUES (7,'Vara',38,20),(8,'Prasad',55,400),(9,'Srisailapu',36,700);
+INSERT INTO TABLE EMPLOYEE_TABLE VALUES (10,'Yugandhar',36,60),(10,'Garapati',8,500),(11,'YG',56,900);
+SELECT * FROM EMPLOYEE_TABLE
+
+INSERT INTO TABLE LOAN_TABLE VALUES (101,1,true,100000),(102,2,false,20000),(103,3,true,5000);
+INSERT INTO TABLE LOAN_TABLE VALUES (104,4,true,7000),(105,4,true,100000),(106,6,false,1000);
+INSERT INTO TABLE LOAN_TABLE VALUES (107,7,false,9000),(108,8,true,200000),(109,9,true,300000);
+INSERT INTO TABLE LOAN_TABLE VALUES (110,10,false,600000),(111,10,true,80000),(112,11,false,70000);
+SELECT * FROM LOAN_TABLE
+
+SELECT e.name,l.loadid FROM EMPLOYEE_TABLE e,LOAN_TABLE l WHERE e.id=l.id AND l.loan_applied=true;
+SELECT e.name FROM EMPLOYEE_TABLE e,LOAN_TABLE l WHERE e.id=l.id AND l.loan_applied=true;
+
+
+-- EXP 8
+
+CREATE TABLE IF NOT EXISTS `dept_hyd2` (
+    `DEPARTMENT_ID`  INT,
+    `DEPARTMENT_NAME` varchar(20)
+    );
+DESCRIBE dept_hyd2
+INSERT INTO dept_hyd2 VALUES (901,'CSE'), (902,'IT'), (903,'ECE'),(904,'MECH'), (905,'CIVIL'), (906,'EEE'), (907,'ECM'), (908,'AERO'), (909,'CHEMICAL'), (910,'METTALURGY'), (911,'OIL AND PETROLEUM');
+SELECT * FROM dept_hyd2
+
+SELECT e.NAME,d.DEPARTMENT_NAME FROM employee_table e, dept_hyd2 d WHERE d.DEPARTMENT_ID = 901;
+
+
+-- EXP 9
+
+CREATE TABLE IF NOT EXISTS `customer_hyd`(
+    `CUSTOMER_ID` INT,
+    `NAME` varchar(20),
+    `AGE` INT,
+    `ADDRESS` varchar(20),
+    `SALARY` INT
+    );
+DESCRIBE customer_hyd
+INSERT INTO customer_hyd VALUES(111,'RaviTeja',35,'Manikonda',500000), (112,'Srinivas',37,'ChandaNagar',400000), (113,'Varaprasad',39,'Beeramguda',300000),
+(114,'Yugandhar',38,'Rudraram',600000),(115,'Sivamani',40,'Visakhaatnam',800000),(116,'Madhu',32,'Ontario',1200000),(117,'Keerthi',32,'California',1600000),
+(118,'Surya',32,'Melbourne',2000000),(119,'Sowjanya',32,'Lingampalli',8000000),(120,'Archana',32,'Hyderabad',3000000);
+SELECT * FROM customer_hyd
+
+CREATE TABLE IF NOT EXISTS `order_hyd1`(
+    `ORDER_ID` INT,
+    `DATE` varchar(20),
+    `CUSTOMER_ID` INT,
+    `AMOUNT` INT
+    );
+DESCRIBE order_hyd1
+INSERT INTO order_hyd1 VALUES (101,'2022-12-22',111,12000),(102,'2023-01-23',112,4000),(103,'2023-01-23',113,4000),
+(114,'2022-01-23',114,4000),(105,'2021-02-23',115,4000),(106,'2021-05-13',116,4000),(107,'2018-10-07',117,4000),(108,'2019-07-23',118,4000),
+(109,'2017-08-23',119,4000),(110,'2015-09-23',120,4000);
+SELECT * FROM order_hyd1
+
+--SELECT c.NAME,o.ORDER_ID FROM customer_hyd c,order_hyd1 o WHERE o.ORDER_ID = 101;
+
+SELECT c.NAME, o.ORDER_ID FROM customer_hyd c JOIN (SELECT * FROM order_hyd1 WHERE ORDER_ID = 101) o ON c.CUSTOMER_ID = o.CUSTOMER_ID;
