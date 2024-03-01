@@ -1,0 +1,14 @@
+SHOW DATABASES
+CREATE DATABASE GITAM
+USE GITAM
+DESCRIBE DATABASE GITAM
+CREATE TABLE gitam_table(abc STRING);
+SHOW TABLES
+load data local inpath 'file:///home/cloudera/DDL/sample.txt' into table gitam_table
+SELECT * FROM gitam_table
+create external table gitam_table2(abc STRING) location '/user/cloudera/DDL/gitam_table2'
+load data local inpath 'file:///home/cloudera/DDL/sample2.txt' into table gitam_table2
+SELECT * FROM gitam_table2
+DROP table gitam_table
+DROP table gitam_table2
+SHOW TABLES
