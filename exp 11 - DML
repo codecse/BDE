@@ -1,0 +1,138 @@
+-- Create the customer table
+--DROP TABLE customers
+CREATE TABLE customers (
+    customer_id INT,
+    name STRING,
+    age INT,
+    gender STRING,
+    city STRING,
+    state STRING,
+    country STRING
+);
+
+-- Insert some sample data
+INSERT INTO customers VALUES
+(1, 'John Doe', 30, 'Male', 'New York', 'NY', 'USA'),
+(2, 'Jane Smith', 25, 'Female', 'Los Angeles', 'CA', 'USA'),
+(3, 'Alice Johnson', 40, 'Female', 'Chicago', 'IL', 'USA'),
+(4, 'Bob Brown', 35, 'Male', 'Houston', 'TX', 'USA'),
+(5, 'Michael Lee', 28, 'Male', 'Miami', 'FL', 'USA');
+
+-- Select query
+SELECT * FROM customers;
+
+-- Create the orders table
+--DROP TABLE orders
+CREATE TABLE orders (
+    order_id INT,
+    customer_id INT,
+    order_date STRING,
+    total_amount DECIMAL(10, 2)
+);
+
+-- Insert some sample data into the orders table
+INSERT INTO orders VALUES
+(1, 1, '2024-01-15', 150.50),
+(2, 2, '2024-02-20', 200.25),
+(3, 1, '2024-03-05', 120.75),
+(4, 3, '2024-04-10', 300.00),
+(5, 4, '2024-05-15', 180.30);
+
+
+-- Update query
+--UPDATE customers SET age = 31 WHERE name = 'John Doe';
+-- Update the age for 'John Doe' to 31
+INSERT OVERWRITE TABLE customers
+SELECT
+    customer_id,
+    name,
+    CASE WHEN name = 'John Doe' THEN 31 ELSE age END AS age,
+    gender,
+    city,
+    state,
+    country
+FROM customers;
+
+-- Join queries
+-- Inner join
+SELECT * FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Left join
+SELECT * FROM customers c
+LEFT JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Right join
+SELECT * FROM customers c
+RIGHT JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Full join
+SELECT * FROM customers c
+FULL JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Left Outer join
+SELECT * FROM customers c
+LEFT OUTER JOIN orders o ON c.customer_id = o.customer_id;
+
+-- RIGHT OUTER join
+SELECT * FROM customers c
+RIGHT OUTER JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Full Outer join
+SELECT * FROM customers c
+FULL OUTER JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Inner join
+SELECT * FROM customers c
+INNER JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Left inner join
+--SELECT * FROM customers c
+--LEFT JOIN orders o ON c.customer_id = o.customer_id
+--WHERE o.customer_id IS NOT NULL;
+
+-- Right inner join
+--SELECT * FROM customers c
+--RIGHT JOIN orders o ON c.customer_id = o.customer_id
+--WHERE c.customer_id IS NOT NULL;
+
+-- Full inner join
+--SELECT * FROM customers c
+--LEFT JOIN orders o ON c.customer_id = o.customer_id
+--UNION ALL
+--SELECT * FROM customers c
+--RIGHT JOIN orders o ON c.customer_id = o.customer_id;
+
+-- Aggregate functions
+-- Count
+SELECT COUNT(*) FROM customers;
+
+-- Sum
+SELECT SUM(age) FROM customers;
+
+-- Average
+SELECT AVG(age) FROM customers;
+
+-- Maximum
+SELECT MAX(age) FROM customers;
+
+-- Minimum
+SELECT MIN(age) FROM customers;
+
+--Data Retrieval
+-- Using the WHERE clause to filter data
+SELECT * FROM customers
+WHERE age > 30;
+
+-- Using the GROUP BY clause to group data
+SELECT gender, COUNT(*) as count FROM customers
+GROUP BY gender;
+
+-- Using the HAVING clause to filter grouped data
+SELECT gender, COUNT(*) as count FROM customers
+GROUP BY gender
+HAVING count > 1;
+
+-- Using the LIMIT clause to limit the number of results
+SELECT * FROM customers
+LIMIT 3;
